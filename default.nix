@@ -4,7 +4,7 @@ let
   python35Packages = pkgs.python35Packages;
 in rec {
   tooansi = python35Packages.buildPythonApplication {
-    version = "2.7";
+    version = "1.0";
     name = "tooansi";
 
     src = pkgs.fetchFromGitHub {

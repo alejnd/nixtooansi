@@ -29,6 +29,15 @@
  
       users.extraUsers = {
         tansi = { };
-      }; 
-    };
+      };
+      users.extraUsers.nixuser = {
+        extraGroups = [
+          "wheel"
+        ];
+        isNormalUser = true;
+        openssh.authorizedKeys.keys = [
+          "ssh-rsa obviously_not_included@your-machine"
+        ];
+     }; 
+   };
 }      
