@@ -22,7 +22,7 @@ in {
         serviceConfig = {
           Type = "simple";
           ExecStart = "${pkgs.tooansi}/bin/tooansi";
-          Restart = "on-failure";
+          Restart = "always";
         };
       };
     };
