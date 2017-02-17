@@ -12,7 +12,7 @@
       };
 
       environment.systemPackages = [ pkgs.tooansi ];
-      imports = [ <nixpkgs/nixos/modules/virtualisation/virtualbox-image.nix> 
+      imports = [ <nixpkgs/nixos/modules/virtualisation/virtualbox-image.nix>
                   ./tacfg.nix
                 ];
 
@@ -24,7 +24,7 @@
       services.tooansi = true;
 
       users.extraUsers = {
-        tansi = { }; 
+        tansi = { };
      };
 
      users.extraUsers.nixuser = {
