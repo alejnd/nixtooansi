@@ -1,43 +1,36 @@
 {
-  network.description = "tooansi server";
-  tooansi = 
+  network.description = "Tooansi server";
+  taserver =
     { config, pkgs, ... }:
-    
-    let
-      packages = import ./default.nix { pkgs = pkgs; };
-      tooansi = packages.tooansi;
-      op = pkgs.lib;
-    in
-    { 
-      networking.networkmanager.enable = true;
-      services.sshd.enable = true;
-      networking.firewall.allowedTCPPorts = [ 5000 22 ];
-      networking.firewall.allowPing = true;
-     
-      systemd.services.tooansi = {
-        after = [ "network.target" ];
-        description = "tooansi Daemon";
-        wantedBy = [ "default.target" ];
-        serviceConfig = {
+    with pkgs.lib;
 
-          Type = "simple";
-          ExecStart = "${tooansi}/bin/tooansi";
-          User = "tansi";
-          Restart = "on-failure";
+    {
+      nixpkgs.config = {
+        packageOverrides = {
+          tooansi = import ./tooansi.nix;
         };
       };
- 
+
+      environment.systemPackages = [ pkgs.tooansi ];
+      imports = [ <nixpkgs/nixos/modules/virtualisation/virtualbox-image.nix> 
+                  ./tacfg.nix
+                ];
+
+      networking.firewall.allowedTCPPorts = [ 5000 22 ];
+      networking.firewall.allowPing = true;
+      networking.networkmanager.enable = true;
+      security.sudo.wheelNeedsPassword = false;
+      services.sshd.enable = true;
+      services.tooansi = true;
+
       users.extraUsers = {
-        tansi = { };
-      };
-      users.extraUsers.nixuser = {
-        extraGroups = [
-          "wheel"
-        ];
-        isNormalUser = true;
-        openssh.authorizedKeys.keys = [
-          "ssh-rsa obviously_not_included@your-machine"
-        ];
-     }; 
-   };
-}      
+        tansi = { }; 
+     };
+
+     users.extraUsers.nixuser = {
+       extraGroups = [ "wheel" ];
+       isNormalUser = true;
+       openssh.authorizedKeys.keys = [ "ssh-rsa YOUR PUBLIC KEY you@your-machine" ];
+       };
+     };
+}
