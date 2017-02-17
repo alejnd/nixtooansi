@@ -1,7 +1,7 @@
 with import <nixpkgs> {};
 
 python35Packages.buildPythonApplication rec {
-  version = "2.5";
+  version = "1.0";
   name = "tooansi";
 
   src = fetchFromGitHub {
