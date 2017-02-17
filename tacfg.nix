@@ -1,24 +1,24 @@
-{ config, pkgs, ... }:
-with pkgs.lib;
+{ config, pkgs, lib, ... }:
+with lib;
 
 let
   cfg = config.services.tooansi;
 
 in {
-  options.services.tooansi = {
+  options.services.tooansi = with types; {
     enable = mkOption {
-      type = types.bool;
+      type = bool;
       default = false;
       description = ''
         By default the service is disabled
       '';
      };
   };
-    config = {
+    config = mkIf cfg.enable {
       systemd.services.tooansi = {
         after = [ "network.target" ];
         description = "tooansi Daemon";
-        wantedBy = [ "default.target" ];
+        wantedBy = [ "multi-user.target" ];
         serviceConfig = {
           Type = "simple";
           ExecStart = "${pkgs.tooansi}/bin/tooansi";

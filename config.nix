@@ -21,7 +21,7 @@
       networking.networkmanager.enable = true;
       security.sudo.wheelNeedsPassword = false;
       services.sshd.enable = true;
-      services.tooansi = true;
+      services.tooansi.enable = true;
 
       users.extraUsers = {
         tansi = { };
