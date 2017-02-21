@@ -25,12 +25,12 @@
 
       users.extraUsers = {
         tansi = { };
-     };
+      };
 
-     users.extraUsers.nixuser = {
-       extraGroups = [ "wheel" ];
-       isNormalUser = true;
-       openssh.authorizedKeys.keys = [ "ssh-rsa YOUR PUBLIC KEY you@your-machine" ];
-       };
-     };
+      users.extraUsers.nixuser = {
+        extraGroups = [ "wheel" ];
+        isNormalUser = true;
+        openssh.authorizedKeys.keys = [ "ssh-rsa YOUR PUBLIC KEY you@your-machine" ];
+        };
+      };
 }
