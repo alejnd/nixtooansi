@@ -1,7 +1,9 @@
 {
   network.description = "Tooansi server";
+
   taserver =
     { config, pkgs, ... }:
+
     with pkgs.lib;
 
     {
@@ -31,6 +33,6 @@
         extraGroups = [ "wheel" ];
         isNormalUser = true;
         openssh.authorizedKeys.keys = [ "ssh-rsa YOUR PUBLIC KEY you@your-machine" ];
-        };
       };
+    };
 }

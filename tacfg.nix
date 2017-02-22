@@ -1,4 +1,5 @@
 { config, pkgs, lib, ... }:
+
 with lib;
 
 let
@@ -13,17 +14,21 @@ in {
         By default the service is disabled
       '';
      };
+
   };
-    config = mkIf cfg.enable {
-      systemd.services.tooansi = {
-        after = [ "network.target" ];
-        description = "tooansi Daemon";
-        wantedBy = [ "multi-user.target" ];
-        serviceConfig = {
-          Type = "simple";
-          ExecStart = "${pkgs.tooansi}/bin/tooansi";
-          Restart = "always";
-        };
+
+  config = mkIf cfg.enable {
+    systemd.services.tooansi = {
+      after = [ "network.target" ];
+      description = "tooansi Daemon";
+      wantedBy = [ "multi-user.target" ];
+
+      serviceConfig = {
+        Type = "simple";
+        ExecStart = "${pkgs.tooansi}/bin/tooansi";
+        Restart = "always";
       };
+
     };
+  };
 }
